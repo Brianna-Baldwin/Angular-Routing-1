@@ -9,14 +9,16 @@ import { AuthGuard } from './user/auth.guard';
   imports: [
     RouterModule.forRoot([
       { path: 'welcome', component: WelcomeComponent },
-      { path: 'products',
-      canActivate: [AuthGuard],
+      {
+        path: 'products',
+        canLoad: [AuthGuard],
         loadChildren: () =>
-          import('./products/product.module').then(m => m.ProductModule)},
+          import('./products/product.module').then((m) => m.ProductModule),
+      },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', component: PageNotFoundComponent }
-    ])
+      { path: '**', component: PageNotFoundComponent },
+    ]),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
